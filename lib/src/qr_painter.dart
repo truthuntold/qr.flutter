@@ -402,21 +402,21 @@ class QrPainter extends CustomPainter {
   }
 
   /// Returns a [ui.Picture] object containing the QR code data.
-  ui.Picture toPicture(double size) {
+  ui.Picture toPicture(Size size) {
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
-    paint(canvas, Size(size, size));
+    paint(canvas, size);
     return recorder.endRecording();
   }
 
   /// Returns the raw QR code [ui.Image] object.
-  Future<ui.Image> toImage(double size,
+  Future<ui.Image> toImage(Size size,
       {ui.ImageByteFormat format = ui.ImageByteFormat.png}) async {
-    return await toPicture(size).toImage(size.toInt(), size.toInt());
+    return await toPicture(size).toImage(size.width.toInt(), size.height.toInt());
   }
 
   /// Returns the raw QR code image byte data.
-  Future<ByteData?> toImageData(double size,
+  Future<ByteData?> toImageData(Size size,
       {ui.ImageByteFormat format = ui.ImageByteFormat.png}) async {
     final image = await toImage(size, format: format);
     return image.toByteData(format: format);
